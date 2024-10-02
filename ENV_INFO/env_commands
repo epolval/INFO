@@ -5,4 +5,11 @@ python3 -m venv <name_of_env> #making enviroment
 
 #activation/deactivation of enviroment
 source <name_of_env>/bin/activate #activate the enviroment
-deactivate
+deactivate #deact the enviroment
+
+#Variable __name__ has a value __main__ if module start like a script
+#Variable __name_ has a value name of module if module was imported
+
+#starting package like a module
+#in package mast be file __main__.py for starting it like a module
+#so start package may be done by this way: python3 __main__.py
