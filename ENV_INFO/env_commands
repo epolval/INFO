@@ -1,0 +1,8 @@
+sudo apt install python3-venv #install venv for making enviroment
+python3 -m venv <name_of_env> #making enviroment
+<name_of_env>/bin/pip install cowsay #install cowsay to new env
+<name_of_env>/bin/cowsay hello! #start cowsay from entry point
+
+#activation/deactivation of enviroment
+source <name_of_env>/bin/activate #activate the enviroment
+deactivate
