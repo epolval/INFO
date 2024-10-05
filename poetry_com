@@ -1,0 +1,22 @@
+poetry add name_of_project # adding new project
+poetry config --list #list configuration
+poetry config virtualenvs.in-project true #to save virt. envs. in project folder
+poetry install #inicialisation of inviroment create folder .venv
+poetry shell #go to enviroment
+exit #exit from enviroment
+poetry run python #run programms inside enviroment
+poetry add program/package_name #adding program to project
+poetry remove program/package_name #deleting program/package to project
+poetry add --group dev pytest # adding package pytest to group dev (developer tools)
+poetry run which pytest # run also can run aditional comands, like wich
+poetry update #updayt all dependenses
+poetry update programm_name #only one program or package
+
+[tool.poetry.scripts] #string mast be added to .toml file for short command start functions from scripts
+say-hellow = "hellow.scripts.say_hello:main" #the short command say-hello will start function main from module say_hellow from package scripts from package hellow
+poetry run say-hello #to start short command
+
+poetry build #command will be done in progect root this command make distributive in folder dist
+pip install dist/name.whl #installation distributive
+#project can be installed by pip without distributions only pip install . in folder where module is
+

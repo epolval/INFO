@@ -1,0 +1,10 @@
+#Problem description:
+
+#When using pip install to install the library, an error is reported:
+#ERROR: Could not install packages due to an OSError: Missing dependencies for SOCKS support.
+#Solution:
+
+#Enter in the terminal:
+
+unset all_proxy
+unset ALL_PROXY
