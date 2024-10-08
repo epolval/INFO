@@ -1,0 +1,3 @@
+WSGI -web server gateway interface. the func wich receive requests and generate answers (gunicorn for ex)
+ORM  Object Relation Method For work with bd, transfer bd objects like undestandeble for Python
+MVC Model-View-Controller. Model wich discribe processing of HTTP requests on server

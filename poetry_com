@@ -1,4 +1,4 @@
-poetry add name_of_project # adding new project
+poetry new name_of_project # adding new project
 poetry config --list #list configuration
 poetry config virtualenvs.in-project true #to save virt. envs. in project folder
 poetry install #inicialisation of inviroment create folder .venv
