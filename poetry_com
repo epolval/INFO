@@ -1,4 +1,5 @@
 poetry new name_of_project # adding new project
+poetry init #Initialize Poetry in the existing Project have to do in progect folder
 poetry config --list #list configuration
 poetry config virtualenvs.in-project true #to save virt. envs. in project folder
 poetry install #inicialisation of inviroment create folder .venv

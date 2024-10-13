@@ -1,0 +1,46 @@
+Make shure you have the newes version of python,pip, and poetry was instilled and in touch:
+python3 --version
+pip --version
+poetry --version
+==========================
+Clone repository from GITHUB localy:
+git clone git@github.com:epolval/python-project-49.git
+==========================
+Inicialize python packet inside root poetry directory:
+poetry init
+==========================
+While name of main directory of project is different with name of packaje add on .toml file in branch [tool.poetry]:
+packages = [{ include = "brain_games" },]
+==========================
+add to packaje .py file with function main(). add to .toml string for short start of function:
+[tool.poetry.scripts]
+brain-games = "brain_games.scripts.brain_games:main"
+==========================
+To do installation of packet:
+poetry install
+!!!!!now we can run our application with:!!!!
+ poetry run brain-games 
+==========================
+To add file Makefile
+to add strings:
+install:
+	poetry install
+brain-games:
+	poetry run brain-games
+!!!!!!!!now we can run app with:!!!!!!!!!
+make brain-games
+==========================
+To add file .gitignore
+to add in this file:
+.idea/
+.venv/
+ dist/
+==========================
+To install packet to main OS:
+poetry build
+python3 -m pip install --user dist/*.whl
+all thees action showld be done from root directory of project
+========================== 
+To test publish project in PYPI
+poetry publish --dry-run		
+==========================

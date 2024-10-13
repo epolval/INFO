@@ -6,9 +6,18 @@ git pull
 git push
 git diff #show difference between
 git log #look all commits -p with diff --oneline -short format of commit number, --grep="pattern " serch by pattern
+git rm --cached <name of file or folder> #delete file/folder from index and stay it on work directory
 
+++++++Cancel changing+++++++++++++++++
+git checkout -- <filename> #cancel all changes in file which was not indexed or commited yet
+git checkout -- . # the same in all files
+git restore --staged <файл> #if file was added to index, we can delete them from index without cancel changes
+git reset HEAD <file> #if file was added to index, we can delete them from index without cancel changes
+git reset --soft HEAD^ #cancel last commit, but stay changes in index and work directory
+git reset --hard HEAD^ #cancel all changes from last commit,also from index and work directory
+git revert <commit hash> #make commit which delete changes up to <commit hash> commit
 
-
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 git config --global user.email "Pvy1976@gmail.com"
 git config --global user.name "epolval"
 
