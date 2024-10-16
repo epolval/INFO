@@ -1,0 +1,39 @@
+#sets is non ordered set of the uniqe elements
+s = {1,4,6,7,'mouse'}
+print(s)
+
+#add empty set: "set()"
+print(set())
+
+#add set from eny iterator: "set(<iterator>)"
+print(set('mouse'))
+print(set(range(11)))
+print(set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+
+#checking for list membership, mor faster then same action with string or list: "<member> in {<set>}"
+print('m'in set('mouse'))
+print(100 in set(range(11)))
+print(5 in set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+
+#adding member to set: "s.add(<member>)"
+s = {1, 2, 3}
+s.add('mouse')
+print(s)
+
+#delete member from set: "s.discard(member)" if member is absent where is no alarm
+s.discard(2)
+s.discard(100)
+
+#delete member from set: "s.discard(member)" if member is absent where is  alarm!
+s.remove(2)
+s.remove(100)
+
+#copy of set: s.copy()
+s1 = s.copy()
+print(s1 is s)
+print(s1 == s)
+
+#cleaning of set s.clear()
+s.clear()
+
+

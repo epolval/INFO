@@ -1,0 +1,63 @@
+#defining experemental dictionary: "d = {1:mouse, 2:rat, 3:hamster}:"
+d = {1:mouse, 2:rat, 3:hamster} 
+print(list(d))
+
+#sequrity way for key request value from dictionary: "if <key> in <dictionary> else None"
+print(d[1] if 1 in d else 'no item in this key')
+print(d[7] if 7 in d else 'no item in this key')
+
+#method .get(),get item with key or string if key is not in the dictionary: "d.get(key,'no item in this key')"
+print(d.get(1,'no item in this key'))
+print(d.get(7,'no item in this key'))
+
+#use method key(), return list of keys of dictionary: "dictionary.keys()"
+print(list(dictionary.keys()))
+
+#use method values(),return list of values of dictionary: "dictionary.values()"
+print(list(dictionary.values()))
+
+#use method items() return list of items: "dictionary.items()"
+print(list(dictionary.items()))
+
+#return all keys in dict d: "list(d)"
+print(list(d))
+
+#return number of items in dict d: "len(d)"
+print(len(d))
+
+#add new item in dictionary: "d[key] = value"
+print(d[key] = value)
+
+#delete item from dictionary:d.pop(key,'no item in this key')
+print(d.pop(4,'no item in this key'))
+print(d.pop(7,'no item in this key'))
+
+#method remove item that was last inserted in the dictionary: ".popitem()"
+print(d.popitem())
+
+#splits dictionaryes d and d1, if exist same keys item of d will be updated by item from d1: "d.update(d1)"
+d = {1:'mouse', 2:'rat', 3:'hamster'}
+d1 = {1:'cool mouse',4:'squirrel'}
+d.update(d1
+print(list(d)))
+
+#copy d to c: "c = d.copy()" 
+c = d.copy() 
+print(list(c))
+
+#make d empty: "d.clear()"
+print(d.clear())
+
+#add indexes for member of itarable
+enumerate(iterable, start=0) #add indexes for member of itarable
+
+#method return value by key if no key create and return new member of dict with value #<value>:"d.setdefault(key,<value>)"
+print(d.setdefault(4,'fox'))
+print(d.setdefault(1,'fox'))
+
+#defaultdic, dictionary which set key in previously defyned by parameter place: "defaultdic(<type function>)"
+from collections import defaultdic
+d = defaultdic(str) #the empty str return empty string ''
+d['one'] = 'mouse'
+d['two'] = 'rat'
+print(d)
