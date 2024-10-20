@@ -1,0 +1,63 @@
+#nonlocal allows to designate variable to be use and change in local zone was defined in outer zone:"nonlocal var"
+def fun():
+    x = 10
+    def fun2():
+        nonlocal x
+        x = 20
+    fun2()
+    print(x)    #20    
+    
+#global allows variable be defined in local zone and be visible in global zone: "global var"     
+
+#closure function
+def outer():
+    count = 0
+    def inner():
+        nonlocal count
+        count += 1
+        return count
+    return inner
+    
+counter = outer()
+print(counter()) # => 1
+print(counter()) # => 2
+
+#####################
+##keyword arguments##
+#####################
+
+#keyword arguments:
+def calculate(base, sub, mul):
+    return (base - sub) * mul
+
+#we can ask function with keyworded paramiteres:
+calculate(base = 5, sub = 3, mul = 2)
+
+#paramiters by default: "def func(x, y, z = default)
+def calculate(base, sub, mul):
+    return (base - sub) * mul
+
+calculate(10, 3)      #7
+
+#in case use keywords and position arguments,
+#position have to be defined first:
+
+def calculate(base, sub, mul):
+    return (base - sub) * mul
+
+calculate(base =10, 3) #will caused error!!!
+    
+#keyword only arguments after sighn * all arguments have to be asked omly keyword:
+
+def calculate(base, *, sub, mul)
+    return (base - sub) * mul
+    
+calculate(10, sub = 1, mul = 2)           #20
+calculate(10, 1, mul = 2)                 #will caused error!!!
+    
+
+    
+
+
+
+        

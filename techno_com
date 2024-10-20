@@ -1,0 +1,16 @@
+#hasattr(function, atribute) function return True if attribute exists
+def my_function():
+    # Проверяем, существует ли атрибут call_count у функции
+    if not hasattr(my_function, "call_count"):
+        my_function.call_count = 0  # Инициализируем счётчик
+
+    # Увеличиваем счётчик на 1 при каждом вызове
+    my_function.call_count += 1
+    
+    print(f"My function was called {my_function.call_count} times.")
+    
+#error exception:
+try:
+    <some actions>
+except:
+    <actions if some actions caused error>        

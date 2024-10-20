@@ -1,12 +1,29 @@
-poetry new name_of_project # adding new project
-poetry init #Initialize Poetry in the existing Project have to do in progect folder
-poetry config --list #list configuration
-poetry config virtualenvs.in-project true #to save virt. envs. in project folder
-poetry install #inicialisation of inviroment create folder .venv
-poetry shell #go to enviroment
-exit #exit from enviroment
-poetry run python #run programms inside enviroment
-poetry add program/package_name #adding program to project
+#adding new project:
+poetry new name_of_project
+
+#Initialize Poetry in the existing Project have to do in progect folder: 
+poetry init 
+
+#list configuration:
+poetry config --list
+
+#to save virt. envs. in project folder: 
+poetry config virtualenvs.in-project true
+
+#inicialisation of inviroment create folder .venv: 
+poetry install 
+
+#go to enviroment:
+poetry shell 
+#exit from enviroment:
+exit
+
+#run programms inside enviroment:
+poetry run python
+
+#adding program to project:
+poetry add program/package_name
+ 
 poetry remove program/package_name #deleting program/package to project
 poetry add --group dev pytest # adding package pytest to group dev (developer tools)
 poetry run which pytest # run also can run aditional comands, like wich

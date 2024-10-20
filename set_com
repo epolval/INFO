@@ -36,4 +36,57 @@ print(s1 == s)
 #cleaning of set s.clear()
 s.clear()
 
+#######################
+#operation with sets: #
+#######################
+#union.items exist in s1 and s2 without doubling: "s1 | s2 OR s1.union(s2)"
+s1 = {1,2,3,4} 
+s2 ={1,2,5}
+print(s1 | s2)        #{1, 2, 3, 4, 5}
+print(s1.union(s2))   #{1, 2, 3, 4, 5}
 
+#intersections only items exists both in s1 and s2
+s1 = {1,2,3,4} 
+s2 ={1,2,5}
+print(s1 & s2)                    #{1, 2}
+print(s1.intersection(s2))        #{1, 2}
+
+#difference only items exist in s1 and not exist in s2: "s1 - s2 OR s1.difference(s2)"
+s1 = {1,2,3,4} 
+s2 ={1,2,5}
+print(s1 - s2)                #{3, 4}
+print(s1.difference(s2))      #{3, 4}
+
+#simmetric_difference returns items exist only in s1 and exist only in s2: "s1 ^ s2 OR s1.simmetric_difference(s2)"
+s1 = {1,2,3,4} 
+s2 ={1,2,5}
+print(s1 ^ s2)                                #{3, 4, 5}
+print(s1.simmetric_difference(s2))            #{3, 4, 5}
+
+
+#######################
+#update on the place: #
+#######################
+#update union: update s1 with data from s2 add to s1 all data from s2 wich is absent in s1: "s1.update(s2)"
+s1 = {1,2,3,4} 
+s2 ={1,2,5}
+s1.update(s2)
+print(s1)                     #{1, 2, 3, 4, 5}
+
+#update intersection, insert in s1 only intersected with s2 items: "s1.intersection_update(s2)"
+s1 = {1,2,3,4} 
+s2 ={1,2,5}
+s1.intersection_update(s2)
+print(s1)                     #{1, 2}
+
+#update difference add to s1 only items exist in s1 and not exist in s2: "s1.difference_update(s2)"
+s1 = {1,2,3,4} 
+s2 ={1,2,5}
+s1.difference_update(s2)
+print(s1)                     #{1, 2}   
+
+#update symmetric difference add to s1 items exists in s1 and exists only in s2:"s1.symmetric_difference_update(s2)"
+s1 = {1,2,3,4} 
+s2 ={1,2,5}
+s1.symmetric_difference_update(s2)
+print(s1)                           #{3, 4, 5}     

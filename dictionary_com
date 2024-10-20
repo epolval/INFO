@@ -1,5 +1,5 @@
-#defining experemental dictionary: "d = {1:mouse, 2:rat, 3:hamster}:"
-d = {1:mouse, 2:rat, 3:hamster} 
+#defining experemental dictionary: "d = {1:'mouse', 2:'rat', 3:'hamster'} :"
+d = {1:'mouse', 2:'rat', 3:'hamster'} 
 print(list(d))
 
 #sequrity way for key request value from dictionary: "if <key> in <dictionary> else None"
@@ -20,17 +20,18 @@ print(list(dictionary.values()))
 print(list(dictionary.items()))
 
 #return all keys in dict d: "list(d)"
+d = {1:'mouse', 2:'rat', 3:'hamster'} 
 print(list(d))
 
 #return number of items in dict d: "len(d)"
 print(len(d))
 
 #add new item in dictionary: "d[key] = value"
-print(d[key] = value)
+d[key] = value
 
 #delete item from dictionary:d.pop(key,'no item in this key')
-print(d.pop(4,'no item in this key'))
-print(d.pop(7,'no item in this key'))
+d.pop(4,'no item in this key')
+d.pop(7,'no item in this key')
 
 #method remove item that was last inserted in the dictionary: ".popitem()"
 print(d.popitem())
@@ -38,7 +39,7 @@ print(d.popitem())
 #splits dictionaryes d and d1, if exist same keys item of d will be updated by item from d1: "d.update(d1)"
 d = {1:'mouse', 2:'rat', 3:'hamster'}
 d1 = {1:'cool mouse',4:'squirrel'}
-d.update(d1
+d.update(d1)
 print(list(d)))
 
 #copy d to c: "c = d.copy()" 
@@ -56,7 +57,7 @@ print(d.setdefault(4,'fox'))
 print(d.setdefault(1,'fox'))
 
 #defaultdic, dictionary which set key in previously defyned by parameter place: "defaultdic(<type function>)"
-from collections import defaultdic
+from collections import defaultdict
 d = defaultdic(str) #the empty str return empty string ''
 d['one'] = 'mouse'
 d['two'] = 'rat'
