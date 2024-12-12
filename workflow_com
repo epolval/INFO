@@ -1,0 +1,74 @@
+#####################################
+#         GitHub Actions
+#####################################
+#create folder .github/workflows in repository you need
+
+mkdir .github
+cd .github
+mkdir workflows
+
+#create file of workflow in /workflows with extension .yaml
+#example of file:
+
+# file: .github/workflows/show-directory.yml
+name: show-directory
+# on – определяет события, которые запускают воркфлоу 'Events'
+on: push
+jobs:
+  # build – произвольно выбранное имя задания
+  # их может быть больше одного
+  build:
+    # операционная система для работы воркфлоу 'Runners'
+    runs-on: ubuntu-latest
+    steps: # список шагов, которые надо выполнить
+      # экшен — выполняет какую-то задачу
+      # checkout — клонирует репозиторий
+      - uses: actions/checkout@v4
+      # run – произвольная bash-команда
+      # ls -la выведет содержимое текущего репозитория
+      - run: ls -la
+      
+#####################################
+#               Tasks
+#####################################      
+
+
+#####################################
+#               Actions
+#####################################  
+
+#EX#1
+steps:
+  - uses: actions/checkout@v4
+  # https://github.com/actions/setup-node
+  - uses: actions/setup-node@v4
+    with:
+      node-version: '18.x'
+      cache: 'npm' # ускоряет повторные сборки
+  - run: npm ci
+  - run: npm test
+
+#EX#2
+name: my_workflow
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v4
+      # Устанавливаем Node.js
+      - uses: actions/setup-node@v4
+      # Добавляем экшн из нашего репозитория:
+      - name: Print Hello from Hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
+      - run: make setup
+      - run: make test
+      - run: make lint
+
+
+
+
+
+  
+  
+  

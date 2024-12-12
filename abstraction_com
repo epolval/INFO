@@ -1,0 +1,18 @@
+# Функции интерфейсные и вспомогательные
+# Функции make_user, get_age, is_adult — интерфейс абстракции User
+# Они используются внешним (пользовательским, вызывающим) кодом
+def make_user(name, birthday):
+    return {
+        "name": name,
+        "birthday": birthday,
+    }
+
+def get_age(user):
+    return calculate_age(user["birthday"])
+
+def is_adult(user):
+    return get_age(user) >= 18
+
+# Эта функция не является частью интерфейса абстракции User
+# Она является "внутренней" и возвращает возраст пользователя
+def calculate_age(birthday):

@@ -1,4 +1,5 @@
 #sets is non ordered set of the uniqe elements
+#set exists only uniq members
 s = {1,4,6,7,'mouse'}
 print(s)
 
@@ -10,7 +11,7 @@ print(set('mouse'))
 print(set(range(11)))
 print(set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
 
-#checking for list membership, mor faster then same action with string or list: "<member> in {<set>}"
+#checking for list membership, more faster then same action with string or list: "<member> in {<set>}"
 print('m'in set('mouse'))
 print(100 in set(range(11)))
 print(5 in set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
@@ -89,4 +90,7 @@ print(s1)                     #{1, 2}
 s1 = {1,2,3,4} 
 s2 ={1,2,5}
 s1.symmetric_difference_update(s2)
-print(s1)                           #{3, 4, 5}     
+print(s1)                           #{3, 4, 5} 
+
+
+    

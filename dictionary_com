@@ -52,7 +52,7 @@ print(d.clear())
 #add indexes for member of itarable
 enumerate(iterable, start=0) #add indexes for member of itarable
 
-#method return value by key if no key create and return new member of dict with value #<value>:"d.setdefault(key,<value>)"
+#setdefault, method return value by key if no key create and return new member of dict with value #<value>:"d.setdefault(key,<value>)"
 print(d.setdefault(4,'fox'))
 print(d.setdefault(1,'fox'))
 

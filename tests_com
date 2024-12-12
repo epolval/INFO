@@ -1,0 +1,85 @@
+#the sample of test is:
+
+from hexlet_pytest.example import reverse                       #set path to tested function
+def test_reverse():                                        #define func for testing use key word 'assert'
+    assert reverse('Hexlet') == 'telxeH'   
+
+#then start pytest by:
+
+poetry run pytest
+
+#the result may be:
+
+#E       AssertionError: assert 'tel' == 'telxeH'
+#E         
+#E         - telxeH                                  #what we expect , marked by "-"
+#E         + tel                                     #what we get , marked by "+"  
+
+#tests/test_example.py:4: AssertionError
+
+#by default pytest supress all prints in functions, use flag -s to enable print:
+poetry run pytest -s
+
+#Exsceptions:
+import pytest
+
+def test_pop_with_empty_stack():
+    stack = []
+    with pytest.raises(IndexError):
+        stack.pop()
+        
+#the name of files with tests HAVE TO START with word "test"!!!        
+
+#Testing with documentation:
+
+def reverse(string):
+    """Reverse string
+
+    >>> reverse('')
+    ''
+
+    >>> reverse('Hexlet')
+    'telxeH'
+    """
+
+    return string[::-1]
+
+# Нужно для запуска тестов
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+    
+#For start testing we have to     
+    
+#code coverage
+#for calculating coverage of code by tests we have to add dependence:
+
+poetry add pytest-cov
+
+#and start pytest with key:
+
+poetry run pytest --cov
+
+#Для того что бы добраться до файла фикстуры используют:
+def get_fixture_path(name):
+    return os.path.join('fixtures', name)
+
+
+f = open(get_fixture_path('result.html'))
+expected = f.read().strip()
+
+или
+
+def test_extract_links():
+    # HTML находится в файле withLinks.html в директории tests/fixtures
+    with_links_path = 'fixtures/withLinks.html'
+    with open(with_links_path, encoding='utf8') as f:
+        html = f.read()
+
+
+
+
+
+
+    
+

@@ -1,0 +1,49 @@
+#EXCEPTIONS
+
+#isinstance(x, class) return True if x belongs to class or his parent
+#Ex:
+ instance(7,int)        #True
+
+#issubclass(class1, class2) if class1 and class2 are relative function returns True
+#EX:
+issubclass(int, float)   #False
+
+#Generating exception:
+#raise BaseException <class>('text of exception')
+#EX:
+raise IndexError('Yahoo!')
+
+#Interception of exceptions:
+
+l=[]
+try:
+    l[1] = 3
+except IndexError:
+    print('Catched?')
+    
+EX with additional information about exception class:
+l=[]
+try:
+    l[1] = 3
+except IndexError as e:
+    print(f'Catched? {e.__doc__}')    
+    
+#Block finally:
+#will work no matter exception started 
+EX:
+l=[]
+try:
+    l[1] = 3
+except IndexError:
+    print('Catched?')
+finally:
+    i.append('g')
+    print(l)    
+   
+
+
+
+
+
+
+

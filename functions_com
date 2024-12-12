@@ -1,3 +1,7 @@
+#############################
+#  nonlocal&global function
+#############################
+
 #nonlocal allows to designate variable to be use and change in local zone was defined in outer zone:"nonlocal var"
 def fun():
     x = 10
@@ -9,7 +13,34 @@ def fun():
     
 #global allows variable be defined in local zone and be visible in global zone: "global var"     
 
-#closure function
+#####################
+#  closure function
+#####################
+#суть в том , что функция 'inner' которую мы определяем в основной функции и которую возвращаем потом наружу
+#называется ЗАМЫКАНИЕМ, когда мы присваеваем результат работы нашей функции 'outer' любой переменной снаружи 
+#и затем вызывам функцию, внутренняя функци 'inner', выполняясь может пользоваться данными определенными в
+#теле функции отер, и эти данные не исчезают , а могут изменяться от деятельности 'inner' функции до тех пор, 
+#пока существует переменная которой мы #присвоили результат работы ф-ции отер (в нашем примере это 'counter').
+#Другими словами,вложенная функция сохраняет доступ к переменной определенной(переданной) во внешней функции.
+#функцию переданную из внешней функции можно вызвать несколько раз и она будет занть данные из внешней функции, более
+#того она (вложенная функция) может изменять значение переменной переданной из основной функции(во внутренней функции следует
+#переменную переданную из внешней обласи объявить nonlocal , тогда ее можно изменять и при следующем вызове внут. ф-ции мы полу
+#чим эту переменную уже измененной), на этом принципе строится использование замыканий в качестве счетчиков.
+
+#example:
+def outer_str(string):
+    def inner_str(add_string):
+        nonlocal string
+        old_string = string
+        string = string + add_string
+        result = f'I have received string: {old_string}, add {add_string}, and result is: {string}'
+        return result
+    return inner_str
+    
+print(myfunc('-'))                          #Sole-
+print(myfunc('95'))                         #Sole-95
+    
+    
 def outer():
     count = 0
     def inner():
@@ -18,9 +49,11 @@ def outer():
         return count
     return inner
     
-counter = outer()
-print(counter()) # => 1
-print(counter()) # => 2
+counter = outer()              #first time count was inicialized
+print(counter())  # => 1       #all next times we use inner function because outer() returned inner()    
+print(counter())  # => 2       #so var counter refer to function inner
+
+#this constraction with two func will remember the value of count from previous calling (this value jast stick to inner func)
 
 #####################
 ##keyword arguments##
@@ -33,8 +66,8 @@ def calculate(base, sub, mul):
 #we can ask function with keyworded paramiteres:
 calculate(base = 5, sub = 3, mul = 2)
 
-#paramiters by default: "def func(x, y, z = default)
-def calculate(base, sub, mul):
+#paramiters by default: "func(x, y, z = default)
+def calculate(base, sub, mul = 1):
     return (base - sub) * mul
 
 calculate(10, 3)      #7
@@ -45,19 +78,403 @@ calculate(10, 3)      #7
 def calculate(base, sub, mul):
     return (base - sub) * mul
 
-calculate(base =10, 3) #will caused error!!!
+calculate(base = 10, 3)                      #will caused error!!!
+calculate(3, base = 10)                      #correct
     
-#keyword only arguments after sighn * all arguments have to be asked omly keyword:
-
+#keyword only arguments after sign * all arguments have to be asked only keyworded:
 def calculate(base, *, sub, mul)
     return (base - sub) * mul
     
 calculate(10, sub = 1, mul = 2)           #20
 calculate(10, 1, mul = 2)                 #will caused error!!!
+
+#####################    
+#arguments packing: 
+#####################
+#in this case arguments pack in tuple when function defined and send inside func like tuple
+
+#EX: #означает любое количество элементов,эта запись означает, что значение попадают в тело ф-ии в виде кортежа:
+def func(*args):  
+    print(f'Full tuple: {args}')
+    print(f'1-th member of tuple: {arg[0]}')
+    print(f'2-th member of tuple: {arg[1]}')
+    print(f'3-th member of tuple: {arg[2]}')
+
+func(2, 5, 6)   
+
+#Result:
+#Full tuple: (2, 5, 6)
+#1-th member of tuple: 2
+#2-th member of tuple: 5
+#3-th member of tuple: 6
+
+#Also we can use mandatory&not arguments in this case x and y mandatory all athers are not mandatory
+def func(x, y, *args):  
+    print(x, y, args)
+
+func(2, 5, 6)  
+
+
+# rest operator have to be after mandatory argument
+func(x, *arg, y):          #caused error  
+
+#keyword argument parking: in this case argument send in func like dictionary
+def func(**kwargs):
+    print(kwargs)
+
+func(a = 9, b = 10)                #{'a': 9, 'b': 10}
+
+#####################
+#arguments unpacking:
+#####################
+#in this case arguments unpack from iterable sequence when function called:
+def func(*args):
+    print(args)
+
+x = [1, 3, 4]
+y = (1, 5 ,6)
+z = {3, 5, 8}
+func(*x)    #(1, 3, 4)
+func(*y)    #(1, 5, 6)
+func(*z)    #(8, 3, 5)
+
+###########################    
+#lambda functions
+#the first class objects
+###########################
+
+#anonimus function or lambda function: lambda x: <body of function>
+lambda x: x + 2
+
+#we can:
+
+#use lambda like expretions to send it to another functions:
+print((lambda x: x + 2)(2))           #4
+
+#use lambda for seting it to variable (to do named function):
+a = lambda x: x + 2
+b = a(2)
+print(b)
+
+#use directly:
+(lambda: print('Hello!'))()            #-> will be printed: Hellow!
+
+
+###########################    
+#  high level function    #
+###########################
+
+#the high level function can get and return other functions
+
+###########################
+#   function sorted()
+###########################
+
+# the signatura of func: "sorted(iterable, /, *, key=None, reverse=False)"
+#iterable -iterable object (list, tuple or dictionary)
+#/ -means all params before it are mandatory.
+#* -means all params after it are keyword arguments, have to ask: key=None, reverse=False
+#key -collback function for function sorted() to know on what key it have to sort
+
+#function sorted() can get function wich return element on base of it sorting will be done
+#sorted() pass to the collback function elment of <iterable> and receive the element for sorting from func:
+
+users=[{ name: 'Igor', age: 19 },{ name: 'Danil', age: 1 },{ name: 'Vovan', age: 4 },{ name: 'Matvey', age: 16 },]
+
+def sort_key(elem):                      #collback func
+    return elem['age']
+
+sorted(users, key=sort_key)
+
+print(users)
+#=>[{ 'name': 'Danil','age': 1 },{ 'name': 'Vovan','age': 4 },{ 'name': 'Matvey','age': 16 },{ 'name': 'Igor','age': 19 } ]
+
+#OR: sorted(users, key=lambda user: user['age'])
+
+###########################
+#      decorators
+###########################
+
+#decorators -function wich get another func change its behaviour. Add or change functional without changing func
+#in example bellow we will decorate func square with debug info:
+
+def debug_decorator(func):
+    def wrapper(arg):
+        print('func = ', func)
+        print('arg = ', arg)
+        return func(arg)
+    return wrapper
+
+def square(x):
+    return x ** 2
+#where are several way to use decorators:
+
+#1 define new var with decorator: 
+printer = debug_decorator(square)   #<function square at 0x75e04623a7a0>
+print(printer(1))  #<function square at 0x75e04623a7a0> #1
+print(printer(2))  #<function square at 0x75e04623a7a0> #4
+
+#2 define to decorated func square func decorator and just get result of square with debug info:
+square = debug_decorator(square)
+print(square(2))    #<function square at 0x75e04623a7a0> #4
+
+#3 redefining decorated func we will use construction: "@<decorator_func_name>" befor defining square func:
+
+def debug_decorator(func):
+    def wrapper(arg):
+        print('func = ', func)
+        print('arg = ', arg)
+        return func(arg)
+    return wrapper
+
+@debug_decorator
+def square(x):
+    return x ** 2
+
+print(square(4))
+
+#will be result:
+#func =  <function square at 0x7761e628a8c0>
+#arg =  4
+#16
+
+#we can use an addition lavel of information to bring inside decorator addition parametres  or even functions:
+def filter_by(key):
+    def inner(func):
+        def wrapper(*args):
+            args = key(args)
+            print('filtered args = ', args)
+            return func(*args)
+        return wrapper
+    return inner
+
+#Декоратор filter_by() принимает функцию фильтрации key(), затем применяет ее к аргументам обернутой функции,
+#и вызывает обернутую функцию с новыми аргументами.
+
+def odd(numbers):
+    result = []
+    for num in numbers:
+        if num % 2 == 1:
+            result.append(num)
+    return result
+
+@filter_by(odd)
+def sum(*nums):
+    result = 0
+    for num in nums:
+        result += num
+    return result
+
+sum(3, 4, 5, 6) # 8
+# => filtered args =  [3, 5]
+
+
+##############################################
+# lazy evaluation & Generators using yield
+##############################################
+
+#iter()
+#in concept of lazy evaluation we can work with collections using function iter()
+#iter() let disturb actions with collection members and then start from place where we use to stopped:
+
+nums = [1, 2, 3, 4, 5]
+iter = iter(nums)
+
+for num in iter:
+    print(num)
+    if num == 2:
+        print(f'We stopped at: {num}')
+        break
+for num in iter:   # continue print from place where we stopped
+    print(num)
     
+#result:
+#1
+#2
+#We stopped at: 2
+#3
+#4
+#5    
 
+#generators are func wich generate new values in every step of its work,
+#not stop after value was generate, using  "yield" instead return word: 
+
+def gen_squares_to(n):
+    i = 1
+    while i <= n:
+        yield i ** 2
+        i += 1
+
+for n in gen_squares_to(5):
+    print(n)
+
+# => 1
+# => 4
+# => 9
+# => 16
+# => 25
+
+
+#################################
+# mapping and function map()
+#################################
+
+#func map() get by first paramiter function and by second collection
+#inside itself func iterate collection and call getted function for every element of collection:
+
+users = [
+  { 'name': 'Igor', 'age': 19 },
+  { 'name': 'Danil', 'age': 1 },
+  { 'name': 'Vovan', 'age': 4 },
+  { 'name': 'Matvey', 'age': 16 }
+]
+
+names = map(lambda user: user['name'], users)   #the names is iterable object <map object at 0x7022d4256b60>
+
+print(list(names))                                     # we can transform it to list: ['Igor', 'Danil', 'Vovan', 'Matvey']
+
+#The string of code: names = map(lambda user: user['name'], users), change construction:
+
+result = []
+for user in users:
+  result.append(user['name'])
+  
+#Example with built in func:
+strings = ["1", "2", "3", "4", "5"]
+result = list(map(int, strings))
+print(result)                                          # Результат: [1, 2, 3, 4, 5]  
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!
+! NOTICE
+!!!!!!!!!!!!!!!!!!!!!!!!!!
+#function map return lazy iterator it work only ONE time!
+#so if you want to use result of map you have to:
+
+names_list: list[str] =  list(map(lambda user: user['name'], users))
+print(names_list)                                                           #['Igor', 'Danil', 'Vovan', 'Matvey']
+
+#construction bellow will not work!
+names = map(lambda user: user['name'], users)
+names_list: list[str] = list(names)
+print(names_list)                                                           #[]      
+
+######################
+#using just function instead lambda:
+####################
+
+numbers = [1, 2, 3, 4, 5]
+def square(x):
+    return x ** 2
+
+squared_numbers = list(map(square, numbers))
+print(squared_numbers)                                                      # Результат: [1, 4, 9, 16, 25]
+
+
+########################
+#function chain()
+######################## 
+
+from itertools import chain
+
+nested_list = [[1, 2, 3], [4, 5], [6, 7, 8]]
+flattened = list(chain.from_iterable(nested_list))
+print(flattened)                                                            # Результат: [1, 2, 3, 4, 5, 6, 7, 8]
+
+#func extract and roll out inner lists in own one list.
+
+
+########################
+#    filtering
+######################## 
+
+#using built-in func: filter(key-function, iterable) -> iterator
+filtered_users = filter(lambda user: user['age'] > 10, users)
+print(filtered_users)                                                     # <filter at 0x71de32b28040>
+
+list(filtered_users)                                           # => [{'name': 'Igor', 'age': 19}, {'name': 'Matvey', 'age': 16}]
+
+
+########################################
+# reduciing and function reduce()
+########################################
+
+#contains in: "from functools import reduce"
+
+#The reduce() function takes three parameters as input: a handler function, a collection,
+#and the initial value of the accumulator. The same accumulator is returned outside
+#as the result of the entire operation. 
+#Unlike map() and filter(), which use lazy evaluation, reduce() returns the result immediately.
+
+#EXAMPLE:
+from functools import reduce
+
+users = [
+    { 'name': 'Petr', 'age': 4 },
+    { 'name': 'Igor', 'age': 19 },
+    { 'name': 'Ivan', 'age': 4 },
+    { 'name': 'Matvey', 'age': 16 },
+]
+
+# Предварительно подготовим функцию-обработчик
+def cb(acc, user):
+    if user['age'] not in acc:
+        acc[user['age']] = []
+    acc[user['age']].append(user['name'])
+    return acc  # обязательно вернуть!
+
+# Начальное значение аккумулятора – пустой словарь
+users_by_age = reduce(cb, users, {})
+print(users_by_age)
+
+#ВАЖНО! в handler function передается в виде параметров СПЕРВА аккумулятор, затем ИТЕРИРУЕМЫЙ объект в нашем случае:
+#cb(acc, user) <- {}, users[n]
+
+
+###########################################
+#        comprehensions
+###########################################
+#comprehensions may use instead map() and (filter) 
+#Выражения вида [… for … in …] называются списочными выражениями, list comprehensions:
+#[ВЫРАЖЕНИЕ for ПЕРЕМЕННАЯ in ИСТОЧНИК if УСЛОВИЕ]
+
+#example:
+# квадраты чисел
+[x*x for x in [1, 2, 3]]
+# [1, 4, 9]
+
+###########################################
+#        iteratoin process
+###########################################
+#ex:
+#n!
+def factorial(n):
+    if n == 0:
+        return 1
+
+    def iter(counter, acc):
+        if counter == 1:
+            return acc
+        return iter(counter - 1, counter * acc)
+
+    return iter(n, 1)
     
+#1.Определить начальное состояние. В нашем случае мы делаем первый вызов iter() с n и 1. Это начальное состояние
+#2.Проверить терминальный сценарий. Мы проверяем, не равен ли counter числу 1 и останавливаем рекурсию, когда он принимает
+#  значение 1
+#3.Определить новое состояние. Это то, как процесс двигается вперед. В нашем случае мы делаем еще один вызов iter() с уменьшенным
+#  counter и умноженным accumulator. Два этих новых числа определяют новое состояние
+#4.Повторить шаг 2    
 
-
-
-        
+#example 2 smallest divider:
+def smallest_divisor(n):
+    if n == 1:
+        return 1
+    def iter(div):
+        if n % div == 0:
+            return div
+        return iter(div + 1)
+    return iter(2)
+    
+    
+    
+            

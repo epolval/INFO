@@ -21,7 +21,7 @@ packages = [{ include = "brain_games" },]
 #==========================
 
 #==========================
-#add to packaje .py file with function main(). add to .toml string for short start of function:
+#add to package .py file with function main(). add to .toml string for short start of function:
 [tool.poetry.scripts]
 brain-games = "brain_games.scripts.brain_games:main"
 #==========================
@@ -92,5 +92,39 @@ poetry add --goup dev flake8
 poetry run flake8 brain_games
 #==========================
 
+#==========================
+#        asciinema
+#==========================
+#to record:
+asciinema rec brain-prime_defeat.cast
+asciinema rec brain-prime_victory.cast
+
+#to upload to asciinema.org
+asciinema upload brain-even_defeat.cast
+
+#to add to README.MD
+[![brain-prime_defeat](https://asciinema.org/a/zvXkEncLuiLsLHmj4LNml2cko.svg)](https://asciinema.org/a/zvXkEncLuiLsLHmj4LNml2cko)
+[![brain-prime_victory](https://asciinema.org/a/JIZl2ajtPiOpZ0gU0UQIBntFn.svg)](https://asciinema.org/a/JIZl2ajtPiOpZ0gU0UQIBntFn)
+
+#==========================
+#       PYTHONPATH
+#==========================
+#PYTHONPATH is a system variable in linux. It order to python where it can find packages and modules,
+#dispite usualy pathes.
+#for temporarily use command in bash:
+export PYTHONPATH=$PYTHONPATH:/home/HEXLET/python-project-49/brain_games
+#for continiously add this string to .bashrc and restart
 
 
+/home/epolval/HEXLET/python-project-49/brain_games
+
+
+##################################
+# poetry add
+##################################
+# to install aplication in project using poetry
+#for example add ruff(linter) in project:
+
+poetry add --group dev ruff
+
+#the way to script ~/HEXLET/python-project-49/brain_games/scripts/games
