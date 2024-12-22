@@ -1,0 +1,63 @@
+#install uv:
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+#initiate existed derictory:
+uv init
+
+#add dependencies:
+uv add <lib name>
+
+#this command do:
+#1. load lib to .venv
+#2. add string to pyproject.toml
+#3. renovate or create uv.lock
+
+#load and define all dependencies by using info from pyproject.toml and uv.lock in directory .venv:
+#установит все пакеты, перечисленные в uv.lock в соответствии с зафиксироваными версиями.
+uv sync
+
+#renovate dependencies:
+uv sync --upgrade
+
+#remove dependencies
+uv remove <lib name>
+
+#dependecies only for development period use flag --dev:
+uv add pytest --dev
+
+#dependencies from dev group (needs for development) will not install :
+uv sync --no-dev
+
+#all dependencies packages exist in .venv/lib/python3.10/site-packages
+
+#renovate dependencies:
+uv sync --upgrade или uv sync -U  #all dep.
+uv sync --upgrade <name_of_package>
+
+#Команда активирует окружение выполняет команду в нем и деактивирует его.
+uv run <command/file.py>
+
+# создает проект с указанной версией
+uv init --python=3.13
+
+# устанавливает проект с указанной версией
+uv sync --python=3.13
+
+# создает лишь окружение с указанной версией
+uv venv  --python=3.13
+
+# запускает команду с указанной версией
+uv run --python=3.13 <команда>
+
+Если указанной версии нет в системе, то uv скачает ее и будет использовать для 
+текущего проекта. Системный Python это никак не затронет, так как интерпретатор 
+проекта полностью изолирован.
+
+#instalation global programs with uv:
+#Команда tool устанавливает пакет в особую общую, но все еще виртуальную и изолированную от системы, директорию утилит. После #установки утилита становится доступна в командной строке по какому-то имени, которое указано в документации проекта
+uv tool instal <name of package>
+uv tool uninstall <name of package>
+
+#start utilits without instalation
+uv tool run <utilitas name> OR uvx <utilitas name>
+

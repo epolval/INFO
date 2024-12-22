@@ -1,4 +1,65 @@
-#EXCEPTIONS
+#Defining class
+
+class <class name>:
+    <body of class>
+    
+#атрибуты класса хранятся в служебном словаре __dict__ их можно оттуда считать, а можно и добавить
+#атрибут добавив его имя, которое будет ключем словаря. 
+
+#Methods
+
+#При опредилении метода класса используется конструкция self с помощью нее класс получает доступ
+#к экземпляру класса и к данным самого класса например в первом примере, я не определил св-во 
+#name у Ivan и метод обратился к этому св-ву у самого класса. У Ann же name определено, и метод,
+#посредством конструкции self обращается к имени экземпляра класса.
+
+class Person:
+    name = 'Name is not defined'
+    def greet(self):
+        print('Hellow, ' + self.name + '!')
+
+Ivan = Person()
+Ivan.greet()             #Hellow, Name is not defined!
+
+Ann = Person()
+Ann.name = 'Ann'
+Ann.greet()            #Hellow, Ann!
+
+#инициализация экземпляров класса выполняется с помощью метода __init__, т.о. в классе можно не опредилять
+#атрибуты класса, они будут определены во время инициализации. 
+
+class Person:
+    def __init__(self, name, surname, age):
+        self.name = name
+        self.surname = surname
+        self.age = age
+
+
+Ivan = Person('Ivan', 'Dulin', '33')
+print(Ivan.name)
+print(Ivan.surname)
+print(Ivan.age)
+
+
+#СВОЙСТВА (GETTER)
+#объявляются как метод без параметров и позволяют получать данные динамически
+#используется служебное слово @property это позволяет обращаться к методу как
+#к атрибуту не используя скобок. 
+
+class Person:
+    def __init__(self, name, surname, age):
+        self.name = name
+        self.surname = surname
+        self.age = age
+    @property
+    def full_name(self):
+        return self.name + ' ' + self.surname  
+
+
+Ivan = Person('Ivan', 'Dulin', '33')
+print(Ivan.full_name)                         #Ivan Dulin
+
+
 
 #isinstance(x, class) return True if x belongs to class or his parent
 #Ex:
@@ -8,6 +69,9 @@
 #EX:
 issubclass(int, float)   #False
 
+
+
+#EXCEPTIONS
 #Generating exception:
 #raise BaseException <class>('text of exception')
 #EX:

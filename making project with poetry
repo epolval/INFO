@@ -122,7 +122,7 @@ export PYTHONPATH=$PYTHONPATH:/home/HEXLET/python-project-49/brain_games
 ##################################
 # poetry add
 ##################################
-# to install aplication in project using poetry
+# to install application in project using poetry
 #for example add ruff(linter) in project:
 
 poetry add --group dev ruff

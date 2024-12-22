@@ -1,1 +1,8 @@
-pip enshurepath #to put path to application to global variable $PATH
+#to put path to application to global variable $PATH
+pip enshurepath 
+echo $PATH
+
+Delete __pycache__:
+rm -rf ./brain_games/__pycache__
+rm -rf ./brain_games/scripts/__pycache__
+rm -rf ./brain_games/games/__pycache__
