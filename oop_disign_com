@@ -1,0 +1,131 @@
+ОСНОВНОЕ НАЗНАЧЕНИЕ МЕТОДА __eq__:
+
+Метод __eq__ позволяет вам настроить, что значит "равенство" для объектов вашего класса. 
+По умолчанию в Python оператор == сравнивает объекты по их идентичности 
+(то есть, проверяет, являются ли они одним и тем же объектом в памяти). 
+Однако в большинстве случаев полезнее сравнивать объекты по их содержимому, 
+а не по месту в памяти.
+
+СИНТАКСИС:
+
+def __eq__(self, other):
+    # Вернуть True, если объекты равны; иначе вернуть False
+    pass
+
+ПРИМЕР ИСПОЛЬЗОВАНИЯ:
+
+class Address:
+    def __init__(self, street, house, zipcode):
+        self.street = street
+        self.house = house
+        self.zipcode = zipcode
+
+    def __str__(self):
+        return f"{self.street}, {self.house}, {self.zipcode}"
+
+    def __eq__(self, other):
+        if isinstance(other, Address):
+            return (self.street == other.street and 
+                    self.house == other.house and 
+                    self.zipcode == other.zipcode)
+        return False
+        
+Как это работает?
+Сравнение объектов одного класса: Когда два объекта Address 
+сравниваются с помощью оператора ==, вызывается метод __eq__.
+
+Логика сравнения:
+Метод проверяет, является ли other объектом класса Address.
+Сравнивает соответствующие атрибуты (street, house, zipcode).
+Возвращает True, если все атрибуты совпадают; иначе False.
+
+Пример:
+
+address1 = Address("Baker Street", "221B", "NW1 6XE")
+address2 = Address("Baker Street", "221B", "NW1 6XE")
+address3 = Address("Fleet Street", "13A", "EC4A 2EA")
+
+print(address1 == address2)  # True, так как данные совпадают
+print(address1 == address3)  # False, разные адреса
+print(address1 == "Some String")  # False, другой тип объекта  
+
+#ПЕРВЫЙ СПОСОБ СОЗДАНИЯ FLUENT INTERFACE ОСНОВАН НА ВОЗВРАТЕ SELF ИЗ МЕТОДОВ, 
+#которые участвуют в построении цепочек. self — ссылка на тот объект, 
+#в контексте которого вызывается метод, поэтому его можно возвращать как обычное значение:
+
+class Collection:
+    def __init__(self, coll):
+        self.coll = coll
+
+    def map(self, fn):
+        self.coll = list(map(fn, self.coll))
+        return self
+
+    def filter(self, fn):
+        self.coll = list(filter(fn, self.coll))
+        return self
+
+    # Возвращает саму коллекцию, а не self.
+    # Этот метод всегда последний в цепочке вызовов Collection.
+    def all(self):
+        return self.coll
+
+cars = Collection([
+    {'model': 'rapid', 'year': 2016},
+    {'model': 'rio', 'year': 2013},
+    {'model': 'mondeo', 'year': 2011},
+    {'model': 'octavia', 'year': 2014}
+])
+
+cars.filter(lambda car: car['year'] > 2013).map(lambda car: car['model'])
+print(cars.all()) # ['rapid', 'octavia']
+
+#У этого способа есть один недостаток — объект изменяется. 
+#Это значит, что нельзя взять и просто переиспользовать 
+#объект-коллекцию для разных выборок, потому что они начнут 
+#накладываться друг на друга.
+
+
+#На практике часто используется другой подход, 
+#с которым мы уже познакомились в прошлом курсе. 
+#Нужно добавить немного функциональности в ООП — возвращать не self, 
+#а СОЗДАВАТЬ НОВЫЙ ОБЪЕКТ ТОГО ЖЕ ТИПА С ОБНОВЛЕННОЙ КОЛЛЕКЦИЕЙ:
+
+class Collection:
+    def __init__(self, coll):
+        self.coll = coll
+
+    def map(self, fn):
+        return Collection(list(map(fn, self.coll)))
+
+    def filter(self, fn):
+        return Collection(list(filter(fn, self.coll)))
+
+    # Возвращает саму коллекцию, а не self.
+    # Этот метод всегда последний в цепочке вызовов Collection.
+    def all(self):
+        return self.coll
+
+cars = Collection([
+    {'model': 'rapid', 'year': 2016},
+    {'model': 'rio', 'year': 2013},
+    {'model': 'mondeo', 'year': 2011},
+    {'model': 'octavia', 'year': 2014}
+])
+
+filtered_сars = cars.filter(lambda car: car['year'] > 2013)
+mapped_сars = filtered_сars.map(lambda car: car['model'])
+print(mapped_сars.all()) # ['rapid', 'octavia']
+print(cars.all())
+# [
+#   {'model': 'rapid', 'year': 2016},
+#   {'model': 'rio', 'year': 2013},
+#   {'model': 'mondeo', 'year': 2011},
+#   {'model': 'octavia', 'year': 2014}
+# ]
+#Теперь каждый вызов возвращает новый объект. 
+
+
+
+
+    

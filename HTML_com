@@ -1,0 +1,157 @@
+Параграф:
+<p></p>  
+
+
+Списки: 
+<ul>
+<li>Somthing1</li>
+...
+<li>SomthingN</li>
+</ul>
+
+
+Сылки:
+<a href="https://ru.hexket.io">Go to Hexlet</a>
+
+href - atribut
+value of atribut - https://ru.hexket.io
+
+#############################
+#   Logical entities for robots
+#############################
+
+#HEADERS
+<header> </header>
+
+
+#Navigation tag
+<nav></nav>
+
+
+#Unical content:
+<main></main>
+
+
+#Section:
+<section></section>
+
+
+#Article:
+<article></article>
+
+#Aside panel:
+<aside><aside>
+
+
+#############################
+#  Base structure of HTML
+#############################
+
+<!DOCTYPE html>
+<html lang=ru>
+ 
+ <head>
+  <meta charset="UTF-8">
+  <title>My first string</title>
+ </head>
+ 
+ <body>
+ ......all string info.....
+ </body>
+ 
+ </html>
+  
+#######################
+#   CSS
+########################
+
+#Any of style CSS looks like this:
+
+name_of_property: value
+
+#Selectors:
+
+p{color:red; font-size: 20px;}
+
+#all pargraphs will have style: "color:red; font-size: 20px;"
+
+#For styles we can use extended file *.css where styles will be.
+#we have to connect this file to *.html with tag <link rel="name_of_style" href="puth to *.hss file">
+#<link> have to situate in <head></head>
+
+<head>
+<link rel="stylesheet" href="puth to *.hss file">
+</head>
+
+#Can use tag <style></syle> in <head>
+
+<head>
+<style>
+p{color:red; font-size: 20px;}
+</syle>
+</head>
+
+#Or can use atribute style in wvery tag:
+
+<p style="color:red; font-size: 20px;">
+any text
+</p>
+
+###################
+#Classes:
+###################
+
+#define class:
+
+.name_of_class{color:red; font-size: 20px;}
+
+#using class - to use atribut class in tag:
+<p class="name_of_class">
+......
+</p>
+
+###################
+#Identificator:
+###################
+
+#define id:
+
+#name_of_id{color:red; font-size: 20px;}
+
+#using id - to use atribut id in tag:
+<p id="name_of_id">
+......
+</p>
+
+
+###################
+#EMMET:
+###################
+<section class="cards">
+  <article class="card">
+    <div class="card-title">Название товара</div>
+    <img src="/images/card-item-1.png" alt="Товар-1">
+    <div class="card-price">
+      <span class="price-sum">24 000</span><span class="price-cur">руб.</span>
+    </div>
+    <button>Заказать</button>
+  </article>
+</section>
+
+#we can use Emmet script:
+section.cards>article.card>div.card-title{Название товара}+img[src="/images/card-item-1.png"][alt="Товар-1"]+(.card-price>span.price-sum{24 000}+span.price-cur{руб.})+button{Заказать}
+
+
+#description:
+section.cards — очень похоже на CSS-селектор, и именно так и стоит на него смотреть. Мы хотим создать элемент <section> с классом cards.
+> — символ, как и в CSS, указывает на вложенность. В текущем значении запись section.cards> означает, что все, что указано далее, будет располагаться внутри секции с классом cards.
+article.card — создаем элемент <article> с классом card.
+div.card-title — создаем блочный элемент с классом card-title. Здесь есть хитрость: чтобы создать элемент <div>, не обязательно его указывать напрямую. Если не указан тег перед классом, то Emmet по умолчанию создаст элемент <div>. То есть вместо div.card-title можно было указать .card-title.
+{Название товара} — в фигурных скобках указывается простой текст, который будет помещен внутрь блока.
++ — символ сложения означает, что правую часть необходимо расположить рядом с левой, а не внутри нее, как в случае с символом >. Мы хотим расположить картинку рядом с блоком card-title, а не внутри.
+img[src="/images/card-item-1.png"][alt="Товар-1"] — создаем элемент <img>. В квадратных скобках указываются атрибуты, которые мы хотим добавить. В данном случае это атрибут src, значением которого является путь до изображения, а второй атрибут alt отвечает за мета-информацию о нашей картинке. Атрибуты можно записывать как по отдельности, так и вместе. Если мы укажем вот такую запись img[src="/images/card-item-1.png" alt="Товар-1"], то результат останется тем же.
+() — скобки позволяют группировать информацию. В данном случае мы хотим, чтобы все, что внутри скобок, располагалось рядом с картинкой, созданной в прошлом пункте.
+
+
+
+

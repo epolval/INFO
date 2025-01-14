@@ -1,4 +1,6 @@
-#Defining class
+########################
+#  Defining class      #
+########################
 
 class <class name>:
     <body of class>
@@ -6,7 +8,9 @@ class <class name>:
 #атрибуты класса хранятся в служебном словаре __dict__ их можно оттуда считать, а можно и добавить
 #атрибут добавив его имя, которое будет ключем словаря. 
 
-#Methods
+########################
+#       Methods        #
+########################
 
 #При опредилении метода класса используется конструкция self с помощью нее класс получает доступ
 #к экземпляру класса и к данным самого класса например в первом примере, я не определил св-во 
@@ -25,6 +29,10 @@ Ann = Person()
 Ann.name = 'Ann'
 Ann.greet()            #Hellow, Ann!
 
+########################
+#   INITIALIZATION     #
+########################
+
 #инициализация экземпляров класса выполняется с помощью метода __init__, т.о. в классе можно не опредилять
 #атрибуты класса, они будут определены во время инициализации. 
 
@@ -40,11 +48,14 @@ print(Ivan.name)
 print(Ivan.surname)
 print(Ivan.age)
 
+########################
+#  СВОЙСТВА (GETTER)
+########################
 
-#СВОЙСТВА (GETTER)
 #объявляются как метод без параметров и позволяют получать данные динамически
 #используется служебное слово @property это позволяет обращаться к методу как
-#к атрибуту не используя скобок. 
+#к атрибуту не используя скобок. суть именно в этом, что бы что-то динамически вычислялось
+#в зависимости от других атрибутов, но обращаться к нему было можно как к обычному атрибуту 
 
 class Person:
     def __init__(self, name, surname, age):
@@ -59,6 +70,85 @@ class Person:
 Ivan = Person('Ivan', 'Dulin', '33')
 print(Ivan.full_name)                         #Ivan Dulin
 
+########################
+#        SETTER        #
+########################
+
+что бы изменить значение геттера применяется сеттер:
+
+class Person:
+    def __init__(self, name, surname, age):
+        self.name = name
+        self.surname = surname
+        self.age = age
+    @property
+    def full_name(self):
+        return self.name + ' ' + self.surname
+
+    @full_name.setter
+    def full_name(self,new):
+        self.name, self.surname = new.split(' ')
+
+
+Ivan = Person('Ivan', 'Dulin', '33')
+
+Ivan.full_name = 'Kukan Pulin'
+
+print(Ivan.full_name)                      #Kukan Pulin
+
+########################
+#      DELETER
+########################
+
+#При удалении атрибута мы можем выполнить некоторые действия, например
+#очистить связанные с этим атрибутом поля:
+
+class Person:
+    def __init__(self, name, surname, age):
+        self.name = name
+        self.surname = surname
+        self.age = age
+    @property
+    def full_name(self):
+        return self.name + ' ' + self.surname
+
+    @full_name.setter
+    def full_name(self,new):
+        self.name, self.surname = new.split(' ')
+
+    @full_name.deleter
+    def full_name(self):
+        self.name = None
+        self.surname = None
+
+Ivan = Person('Ivan', 'Dulin', '33')
+
+Ivan.full_name = 'Kukan Pulin'
+print(Ivan.full_name)
+del Ivan.full_name
+print(Ivan.name)                               #None
+print(Ivan.surname)                            #None    
+
+#######################
+#    НАСЛЕДОВАНИЕ
+#######################
+
+class <class name>(<name of parent class>)
+
+мы по умолчанию используем все атрибуты parent class, но можем вводить свои и переопредилять родительские.
+мы можем переписать методы в новом классе, а можем воспользоваться конструкцией super():
+
+class <class name>(<name of parent class>)
+    def somefunc(self)                     #we want to reuse func from parent class, but use it twice:
+        super().sumfunc()                  #this is reuse parent func 
+        super().sumfunc() 
+        
+обращение к функции super() так же используется при инициализации нового класса
+для уверенности , что инициализация пройдет так же как у исходного класса-родителя:
+               
+class <class name>(<name of parent class>)
+    def __init__(self)
+        super().__init__(self)                 #call the parents initial procedure
 
 
 #isinstance(x, class) return True if x belongs to class or his parent
@@ -105,7 +195,43 @@ finally:
     print(l)    
    
 
+#Встраиваемые объекты (Embedded Objects)
 
+class Address:
+    def __init__(self, street, house, zipcode):
+        self.street = street
+        self.house = house
+        self.zipcode = zipcode
+
+    def __str__(self):
+        return f"{self.street}, {self.house}, {self.zipcode}"
+
+class User:
+    def __init__(self, address):
+        self.street = address['street']
+        self.house = address['house']
+        self.zipcode = address['zipcode']
+
+    def get_address(self):
+        # Поскольку у нас объект-значение,
+        # мы можем создавать его столько раз, сколько нам нужно,
+        # но при необходимости этот процесс можно оптимизировать
+        return Address(self.street, self.house, self.zipcode)
+
+address = {'street': 'pushkina', 'house': 42, 'zipcode': 42000}
+user = User(address)
+print(user.get_address())  #=> pushkina, 42, 42000
+
+#Когда вы пытаетесь преобразовать объект Address в строку 
+#(например, с помощью функции print()), вызывается метод __str__.
+
+#В этом примере Python мы показываем, как можно инкапсулировать логику работы 
+#с адресом пользователя в отдельном классе Address. Метод __str__ в классе 
+#Address предназначен для преобразования объекта в строку.
+
+#Подход с использованием встроенного объекта позволяет упростить код 
+#и избежать дублирования, поскольку весь код, связанный с адресом, 
+#теперь находится в одном месте.
 
 
 

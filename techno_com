@@ -1,4 +1,5 @@
 #hasattr(function, atribute) function return True if attribute exists
+
 def my_function():
     # Проверяем, существует ли атрибут call_count у функции
     if not hasattr(my_function, "call_count"):
@@ -13,4 +14,40 @@ def my_function():
 try:
     <some actions>
 except:
-    <actions if some actions caused error>        
+    <actions if some actions caused error>  
+    
+Генераторы списков в Python – это удобный и компактный способ создания 
+списков на основе существующих итераторов, применяя к ним выражения. 
+Они позволяют заменить цикл for в создании списков и 
+записывать это в одной строке кода.
+
+Вот основные принципы работы с генераторами списков:
+
+Общий синтаксис
+[выражение for элемент in итерабельный_объект if условие]
+
+выражение – любое действие, которое будет применено к каждому элементу.
+итерабельный_объект – объект, по которому можно итерироваться (например, список, строка, диапазон).
+условие (необязательно) – фильтр, который позволяет включать элементы в список только при выполнении определённого условия.
+
+Примеры использования
+
+Создание списка квадратов чисел:
+
+squares = [x**2 for x in range(10)]
+print(squares)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+Фильтрация чисел:
+
+even_numbers = [x for x in range(10) if x % 2 == 0]
+print(even_numbers)  # [0, 2, 4, 6, 8]
+
+Применение строковых операций:
+
+words = ["hello", "world", "python"]
+upper_words = [word.upper() for word in words]
+print(upper_words)  # ['HELLO', 'WORLD', 'PYTHON'] 
+
+
+
+         
