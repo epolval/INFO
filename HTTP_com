@@ -1,0 +1,153 @@
+#To connect to server by telnet (unix)
+#telnet <address> <port>:
+
+telnet localhost 8080
+
+#To get somthing from HTTP server
+#<command> /<path in server> <http>/<version>:
+
+GET /about /HTTP1.0
+
+
+!request have to have two empty string after him!:
+
+#Get info from server http with HTTP1.1
+
+telnet localhost 8080                  #connect to server     
+
+GET /http-protocol/example HTTP/1.1    #what to do? Where from? Wih which version of HTTP?
+host: http.hexlet.app                  #host  
+connection:close                       #to close http1.1 connection
+#one empty string
+#two empty string
+
+!request have to have two empty string after him!
+
+
+###########################
+#    Body in request
+##########################
+
+Plus:
+Content-type: text/plain
+Content-Length: 16
+#blank string
+text of body
+
+###########################
+#    Form sending
+##########################
+
+telnet http.hexlet.app 80
+
+POST /http-protocol/login HTTP/1.1
+Host: http.hexlet.app
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 29
+
+login=smith&password=12345678 # отправляем данные
+
+
+for json:
+Content-Type: application/json
+
+##########################
+Формат сообщений
+##########################
+Для отделения записей размеров блоков (частей) от их содержания 
+используется разделитель CRLF (как строка: «\r\n»; как байты в 
+формате HEX: 0x0D, 0x0A). Длина блока — это размер содержания блока, 
+разделители CRLF не учитываются, кроме тех, которые находятся в самих блоках.
+
+Схематическое представление: <длина блока в HEX><CRLF><содержание блока><CRLF>
+
+Последний блок строится по той же схеме, потому имеет следующий вид 
+по причине отсутствия содержания: 0<CRLF><CRLF>
+
+
+##########################
+#Передача данных query string
+##########################
+
+Помимо того, что данные на сервер можно передавать через body, которое используется 
+при POST запросах и отправке форм, мы также можем передать так называемую строку 
+запроса query string. Это параметры ключ=значение, которые располагаются в request 
+line после указания глагола POST или GET.
+
+POST /login?key=value HTTP/1.1
+Стоит сказать, что указатель на конкретную страницу может отсутствовать и параметры 
+можно передавать на основную страницу домена.
+
+GET /?key=value HTTP/1.1
+query string имеет такой же формат, как и строка в body при POST запросе, 
+только в начале ставится знак ?. После него мы можем передавать 
+параметры key=value&key2=value2 и так далее.
+
+##########################
+#      Curl
+##########################
+
+#GET body: 
+curl http.hexlet.app/http-protocol/example
+
+#GET body and save in file:
+curl http.hexlet.app/http-protocol/example > example.html
+
+#Если мы хотим посмотреть заголовки ответа, то запрос станет таким:
+# --head - запрос с методом HEAD:
+curl --head http.hexlet.app/http-protocol/example
+
+# -X, --request - задает метод запроса
+# --head в этом случае игнорирует тело при выводе:
+curl --head -X GET http.hexlet.app/http-protocol/example
+
+#Если нужно увидеть не только ответ, но и запрос, то подойдет флаг 
+#-v или его полная версия --verbose. Он покажет все, включая тело ответа:
+# -v, --verbose
+curl -v http.hexlet.app/http-protocol/example
+
+#При работе с curl мы можем указывать различные заголовки запроса, 
+#чтобы передать дополнительную информацию на сервер. 
+#Для этого используется флаг -H или --header.
+#Например, если мы хотим указать, что данные, которые мы отправляем, 
+#имеют формат JSON, мы можем использовать следующий команду:
+# -H, --header:
+curl -H "Content-Type: application/json" https://http.hexlet.app/http-protocol/users
+
+#Когда мы отправляем данные на сервер, например, при создании нового пользователя, 
+мы можем использовать флаг -d для указания тела запроса:
+# \ - нужен для указания многострочного кода в терминале
+curl -X POST https://http.hexlet.app/http-protocol/users \
+   -H "Content-Type: application/json" \
+   -d '{ "firstName": "Sam", "lastName": "Johnson", "email": "samj@mail.com", "password": "secret" }'
+
+#########################
+#    login&password
+#########################
+
+Логин и пароль, указанные в модальном окне, передаются на сервер 
+в виде заголовка с закодированным сообщением:
+
+GET /secret-path/ HTTP/1.1
+Host: hexlet.io
+Authorization: Basic aHR0cHdhdGNoOmY=
+
+#string aHR0cHdhdGNoOmY= we can get by terminal command:
+printf 'username:pass' | base64
+
+#########################
+#       Cookies
+#########################
+
+GET /account HTTP/1.1
+Host: hexlet.local
+Cookie: name=user; secret=secret_hash;
+
+
+
+
+
+
+
+
+
