@@ -17,7 +17,7 @@
  
  /[af-]/ -serch only letters a and f and "-"
  
- /[^af-]/ -serch all symbols except a and f and "-"
+ /^[af-]/ -serch all symbols except a and f and "-"
  
  /[A-z]/ - all leters,numbers and symbols
  

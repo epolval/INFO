@@ -1,0 +1,65 @@
+###########################
+#Типы соединения таблиц
+###########################
+
+###########################
+#Соединение без условия
+###########################
+
+#В эту группу попадает только CROSS JOIN — это соединение строит все 
+#возможные комбинации строк из двух таблиц.
+#Например, есть таблица с разными цветами: 
+#красный, зеленый, белый. Также есть таблица с тканевыми материалами: 
+#хлопок, шерсть, #шелк. С помощью CROSS JOIN мы получим все возможные 
+#сочетания цвета и материала, например: красный хлопок, красный шелк, 
+#зеленый #хлопок и так далее.
+
+SELECT color_name, material_name FROM colors CROSS JOIN materials;
+
+###########################
+#Соединения с условием
+###########################
+
+#INNER JOIN
+#Это соединение отбирает только такие пары строк, 
+которые удовлетворяют специальному условию соединения.
+
+SELECT author_name, title 
+FROM books INNER JOIN authors 
+ON book_author_id = author_id;
+
+#LEFT JOIN 
+#используют, когда нужно построить соединение, 
+#в котором обязательно будут все строки из первой таблицы. 
+#Если для строки из первой таблицы нет подходящих пар во второй таблице, 
+#то вместо данных из второй таблицы будут подставлены NULL-значения.
+
+SELECT dep.name AS department, emp.name AS employee
+FROM departments AS dep LEFT JOIN employees AS emp 
+ON dep.department_id = emp.department_id;
+    
+#RIGHT JOIN 
+#работает похожим образом, но только в результат попадают 
+#все строки из второй таблицы, а не из первой.
+
+SELECT dep.name as department, emp.name as employee
+FROM departments AS dep RIGHT JOIN employees AS emp 
+ON dep.department_id = emp.department_id; 
+
+
+#FULL JOIN    
+#Полное внешнее соединение используют, когда в результате должны 
+#быть все строки из обеих таблиц, даже если у них нет подходящей пары. 
+#Результат FULL JOIN включает в себя результаты INNER JOIN, LEFT JOIN и RIGHT JOIN.
+
+SELECT dep.name as department, emp.name as employee
+FROM departments AS dep FULL JOIN employees AS emp 
+ON dep.department_id = emp.department_id;    
+       
+
+
+
+
+
+
+
